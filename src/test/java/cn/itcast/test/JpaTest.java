@@ -113,4 +113,56 @@ public class JpaTest {
         entityManager.close();
     }
 
+
+    /**
+     * 删除客户的案例
+     *
+     */
+    @Test
+    public  void testRemove() {
+        //1.通过工具类获取entityManager
+        EntityManager entityManager = JpaUtils.getEntityManager();
+        //2.开启事务
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        //3.增删改查 -- 删除客户
+
+        //i 根据id查询客户
+        Customer customer = entityManager.find(Customer.class,1l);
+        //ii 调用remove方法完成删除操作
+        entityManager.remove(customer);
+
+        //4.提交事务
+        tx.commit();
+        //5.释放资源
+        entityManager.close();
+    }
+
+    /**
+     * 更新客户的操作
+     *      merge(Object)
+     */
+    @Test
+    public  void testUpdate() {
+        //1.通过工具类获取entityManager
+        EntityManager entityManager = JpaUtils.getEntityManager();
+        //2.开启事务
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        //3.增删改查 -- 更新操作
+
+        //i 查询客户
+        Customer customer = entityManager.find(Customer.class,1l);
+        //ii 更新客户
+        customer.setCustIndustry("it教育");
+        entityManager.merge(customer);
+
+        //4.提交事务
+        tx.commit();
+        //5.释放资源
+        entityManager.close();
+    }
+
+
+
 }
