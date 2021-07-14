@@ -9,3 +9,5 @@
       cust_phone varchar(64) DEFAULT NULL COMMENT '客户联系电话',
       PRIMARY KEY (`cust_id`)
     ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+    经过测试 , 确实可以创建表
