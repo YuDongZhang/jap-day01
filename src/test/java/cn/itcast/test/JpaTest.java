@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * 测试jqpl查询
  */
-public class JpqlTest {
+public class JpaTest {
 
     /**
      * 测试jpa的保存
@@ -48,5 +48,38 @@ public class JpqlTest {
         //       factory.close();
 
     }
+
+
+    /**
+     * 根据id查询客户
+     *  使用find方法查询：
+     *      1.查询的对象就是当前客户对象本身
+     *      2.在调用find方法的时候，就会发送sql语句查询数据库
+     *
+     *  立即加载
+     *
+     *
+     */
+    @Test
+    public  void testFind() {
+        //1.通过工具类获取entityManager
+        EntityManager entityManager = JpaUtils.getEntityManager();
+        //2.开启事务
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        //3.增删改查 -- 根据id查询客户
+        /**
+         * find : 根据id查询数据
+         *      class：查询数据的结果需要包装的实体类类型的字节码
+         *      id：查询的主键的取值
+         */
+        Customer customer = entityManager.find(Customer.class, 2l);
+         System.out.print(customer);
+        //4.提交事务
+        tx.commit();
+        //5.释放资源
+        entityManager.close();
+    }
+
 
 }
